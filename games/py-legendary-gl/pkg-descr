@@ -1,0 +1,7 @@
+Legendary is an open-source game launcher that can
+download and install games from the Epic Games platform
+on Linux, macOS, and Windows. Its name as a tongue-in-cheek play
+on tiers of item rarity in many MMORPGs.
+
+Note: Legendary is currently a CLI (command-line interface) application
+without a graphical user interface, it has to be run from a terminal
