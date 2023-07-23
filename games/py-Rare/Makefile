@@ -16,27 +16,21 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}legendary-gl>0:games/py-legendary-gl@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}QtAwesome>0:x11-fonts/py-QtAwesome@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}typing-extensions>0:devel/py-typing-extensions@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}qt5>=0:devel/py-qt5@${PY_FLAVOR}
 
 ONLY_FOR_ARCHS=	amd64
-USES=		python
+USES=		python desktop-file-utils
 USE_GITHUB=	yes
 GH_ACCOUNT=	Dummerle
 GH_PROJECT=	${PORTNAME}
 GH_TAGNAME=	${PORTVERSION}
 USE_PYTHON=	distutils autoplist
+PLIST_FILES+=	share/applications/rare.desktop
 
-SUB_FILES=	rare.desktop
-
-do-patch:
-	${MKDIR} ${WRKSRC}
-	${PATCH} -p1 < ${FILESDIR} ${FILESDIR}/patch-pyproject.toml
-	${PATCH} -p1 < ${FILESDIR} ${FILESDIR}/patch-rare_utils_paths.py
-	${PATCH} -p1 < ${FILESDIR} ${FILESDIR}/patch-setup.py
-
-post-install:
+post-build:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/applications
-	(cd ${WRKDIR} && ${INSTALL_DATA} rare.desktop \
+	(cd ${WRKDIR} && ${INSTALL_DATA} ${FILESDIR}/rare.desktop \
 		${STAGEDIR}${PREFIX}/share/applications)
 
 .include <bsd.port.mk>
